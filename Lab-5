@@ -1,0 +1,74 @@
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class Palindrome {
+
+/*
+* Implement this method and return true if the word is the same
+* forward and backwards
+* Do not use automatic methods for reversing the string
+* Recursive function
+*/
+private boolean isPalindrome(String word) {
+    int length = word.length();
+    if(length == 0 || length == 1) // terminal cases
+        return true;
+
+    if(word.charAt(0) != word.charAt(length - 1))
+        return false; // different ends, not a palindrome
+    else
+        return isPalindrome(word.substring(1,length-1)); // recursive call
+}
+
+/*
+* Open up the file.
+* Break into words
+* print out all Palindromes
+*/
+private void findAllPalindromes(String fileName) {
+    try {
+        Scanner in = new Scanner(new File(fileName)); // open file
+
+        while (in.hasNext()) {
+            String word = in.next(); // go over each word
+            if(isPalindrome(word)) // and test it
+                System.out.print(" " + word); // output palindromes only
+        }
+    }
+    catch(FileNotFoundException e) {
+        System.out.print("Error opening file");
+    }
+}
+
+public Palindrome() {
+    //run some tests
+    if (isPalindrome("racecar")) {
+        System.out.print("pass");
+    }
+    else {
+        System.out.print("Fail");
+    }
+
+    if (isPalindrome("mom")) {
+        System.out.print("pass");
+    }
+    else {
+        System.out.print("Fail");
+    }
+
+    if (isPalindrome("noon")) {
+        System.out.print("pass");
+    }
+    else {
+        System.out.print("Fail");
+    }
+
+    //findAllPalindromes("test.txt"); // for testing
+}
+
+public static void main(String[] args) {
+    new Palindrome();
+}
+
+}
