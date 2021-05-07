@@ -1,0 +1,63 @@
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class Palindrome {
+
+
+private boolean isPalindrome(String word) {
+    int length = word.length(),firstHalf = length / 2;
+    for(int I = 0; I < firstHalf; I++) {
+        if(word.charAt(I) != word.charAt(length - I - 1))
+            return false; // not the same, then it is not a palindrome
+    }
+
+    return true; // all were the same, it is a palindrome
+}
+
+
+private void findAllPalindromes(String fileName) {
+    try {
+        Scanner in = new Scanner(new File(fileName)); // open file
+
+        while (in.hasNext()) {
+            String word = in.next(); // go over each word
+            if(isPalindrome(word)) // and test it
+                System.out.print(word + " "); // output palindromes only
+        }
+    }
+    catch(FileNotFoundException e) {
+    }
+}
+
+public Palindrome() {
+   
+    if (isPalindrome("racecar")) {
+        System.out.print("pass");
+    }
+    else {
+        System.out.print("Fail");
+    }
+
+    if (isPalindrome("mom")) {
+        System.out.print("pass");
+    }
+    else {
+        System.out.print("Fail");
+    }
+
+    if (isPalindrome("noon")) {
+        System.out.print("pass");
+    }
+    else {
+        System.out.print("Fail");
+    }
+
+    
+}
+
+public static void main(String[] args) {
+    new Palindrome();
+}
+
+}
