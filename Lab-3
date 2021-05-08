@@ -1,0 +1,31 @@
+ import urllib.request
+url = "https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english-usa.txt"
+file = urllib.request.urlopen(url)
+words = []
+for line in file:
+    decoded_line = line.decode("utf-8")
+    words.append(decoded_line[:-1])
+hs_size = len(words) + int(len(words)/5)
+my_hash_table = [[] for _ in range(hs_size)]
+n_collisions = 0
+def Hash(ss):
+    ans = 0
+    for i in range(len(ss)):
+        ans = ans + (pow(7,i))*ord(ss[i])
+    return ans%hs_size
+         
+def insert_word(my_hash_table, value):
+    my_key = Hash(value)
+    my_hash_table[my_key].append(value)
+    
+def number_collisions():
+    n_collisions = 0
+    for i in range(hs_size):
+        if(len(my_hash_table[i])>1):
+            n_collisions+= len(my_hash_table[i])-1
+    return n_collisions
+
+for w in words:
+    insert_word(my_hash_table,w)
+    
+print("Total percentage of collisions are : ",100*number_collisions()/len(words),"%")
